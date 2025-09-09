@@ -44,8 +44,8 @@ exports.createContact = async (req, res) => {
     try {
       const { firstName, lastName, email, favoriteColor, birthday } = req.body;
 
-      if (!firstName || !lastName || !email) {
-        return res.status(400).json({message: "First name, last name, and email are required."})
+      if (!firstName || !lastName || !email || !favoriteColor || !birthday) {
+        return res.status(400).json({message: "All fields are required."})
       }
 
       const newContact = { firstName, lastName, email, favoriteColor, birthday };
