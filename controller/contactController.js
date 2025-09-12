@@ -72,8 +72,12 @@ exports.updateContact = async (req, res) => {
             birthday: req.body.birthday
         };
 
+        const updateObject = Object.fromEntries(
+            Object.entries(allowedUpdates).filter(([key, value]) => value !== undefined)
+        );
+
         const collection = getContactCollection();
-        const result = await collection.updateOne({ _id: id }, { $set: allowedUpdates });
+        const result = await collection.updateOne({ _id: id }, { $set: updateObject });
     
         if (!result.matchedCount) {
             return res.status(404).json({ message: 'Contact not found.' });
